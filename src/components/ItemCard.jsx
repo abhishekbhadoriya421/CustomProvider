@@ -1,13 +1,11 @@
 import React from "react";
 import styles from "../styles/ItemCard.module.css";
 import { useContext } from "react";
-import { itemContext } from "../ItemContext";
-import { TotalContext } from "../TotalContext";
+import { ItemContext } from "../ItemContext";
 
 
 function ItemCard({ name, price }) {
-  const {setItem,item,} = useContext(itemContext);
-  const {total,setTotal} = useContext(TotalContext);
+  const {setItem,item,total,setTotal} = useContext(ItemContext);
 
   const handleAdd = () => {
     setTotal(total+price);
