@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# UseContext and Costume Context
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Web Application is only for Learning purpose This application allow us to add and remove items and calculate the total according to items
 
-## Available Scripts
+## create context 
+we can create context like this
+```js
+const ItemContext = createContext();
+```
+> here we have Create new ItemContext
 
-In the project directory, you can run:
+## Provide Context
+if we have created the context now its time to provide the values for that we can do like this
+```js
+<ItemContext.Provider value={item}>
+```
+> Here we are providing item as a value in our provider
 
-### `npm start`
+### Note : we must import all the necessary things also
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## consumer
+now if we want to consume any of these items then it will be look something like below code:
+```js
+{
+    <ItemContext.Consumer>{(value)=>{
+        return (
+            <>
+                {console.log("Value",value)}
+            </>
+        )
+    }}
+    </ItemContext.Consumer>
+}
+                
+```
+> In above code we are getting the value from Provider and printing on console log
+>there is also another way to get the value or consume the value which is used functional components by importing the useContext hook
+```js
+    import useContext from 'react';
+    const value = useContext(ItemContext);
+```
+> Now we are using useContext hook to get the value
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## custom Provider
+Now If you want to make your own provider then use this code snippet
+```js
+import { createContext, useContext, useState } from "react";
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const ItemContext = createContext();
 
-### `npm run build`
+function ItemProvider({children}){
+    const [total, setTotal] = useState(0);
+    const [item, setItem] = useState(0);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    return(
+        <ItemContext.Provider value={{total,setTotal,item,setItem}}>
+            {children}
+        </ItemContext.Provider>
+    )
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export {ItemContext,ItemProvider,useValue};
+```
+> the custom provider let as separate all the useContext or value passing logic which make code more readable and easy to debug
