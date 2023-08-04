@@ -9,8 +9,8 @@ function App() {
       <ItemProvider>
         <div className='App'>
           <h2>Shopping Cart</h2>
-              <Navbar />
-              <Items />
+          <Navbar />
+          <Items />
         </div>
       </ItemProvider>
   );
